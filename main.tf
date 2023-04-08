@@ -348,7 +348,7 @@ EOF
   tags = var.tags
 
   dynamic "vpc_config" {
-    for_each = local.is_vpc_provided ? map(var.vpc_id, var.subnet_ids) : {}
+    for_each = local.is_vpc_provided ? tomap(var.vpc_id, var.subnet_ids) : {}
     content {
       security_group_ids = [aws_security_group.codebuild-egress[0].id]
       subnets            = vpc_config.value
